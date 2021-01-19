@@ -14,7 +14,9 @@
 #include <unistd.h>
 #include <stdarg.h>
 #include <stdio.h>
-// NEGATIVE YOU FUCKING DUMBASSSS DG KLMSNKLNLSDNGKSDGDSKGNSD STUPID ASS FUCKING BITVH
+/*
+* ft_printf made in preparation to the exam hopefully i'll validated this time :)
+*/
 typedef struct  s_flag
 {
     char con;
@@ -58,7 +60,7 @@ t_flag  get_flags(const char *fmt, int *i)
         }
         if (fmt[*i] == '.')
             flags.has_prec = 1;
-        if (fmt[*i] == 'd' || fmt[*i] == 'd' || fmt[*i] == 'x')
+        if (fmt[*i] == 's' || fmt[*i] == 'd' || fmt[*i] == 'x')
         {
             flags.con = fmt[*i];
             break ;
@@ -87,24 +89,35 @@ int printd(t_flag flags, int d)
 {
     int len;
     int count;
-    int tmp;
+    unsigned int tmp;
     char *p;
+    int signe;
 
-    tmp = d;
+    signe = 1;
+    if (d < 0)
+        signe = -1;
+    tmp = signe * d;
     count = 0;
-    len = get_nbr_len((unsigned long long)d, 10);
+    len = get_nbr_len((unsigned long long)tmp, 10);
     if (len == 0 && !flags.has_prec)
         len += 1;
     flags.width -= len;
+    if (signe < 0)
+        flags.width--;
     flags.prec -= len;
     if (flags.prec > 0)
         flags.width -= flags.prec;
     while (flags.width-- > 0)
         count += write (1, " ", 1);
+    if (signe < 0)
+        count += write(1, "-", 1);
     while (flags.has_prec && flags.prec-- > 0)
         count += write (1, "0", 1);
     if (tmp == 0 && !flags.has_prec)
+    {
         count += write (1, "0", 1);
+        return(count);
+    }
     p = (char *)malloc(len + 1);
     p[len--] = '\0';
     while (tmp)
@@ -119,16 +132,18 @@ int printd(t_flag flags, int d)
     return (count);
 }
 
-int printx(t_flag flags, int d)
+int printx(t_flag flags, unsigned long long d)
 {
     int len;
     int count;
-    int tmp;
+    unsigned int tmp;
     char *p;
+    int signe;
 
     tmp = d;
     count = 0;
-    len = get_nbr_len((unsigned long long)d, 16);
+    signe = 1;
+    len = get_nbr_len((unsigned long long)tmp, 16);
     if (len == 0 && !flags.has_prec)
         len += 1;
     flags.width -= len;
@@ -140,16 +155,19 @@ int printx(t_flag flags, int d)
     while (flags.has_prec && flags.prec-- > 0)
         count += write (1, "0", 1);
     if (tmp == 0 && !flags.has_prec)
+    {
         count += write (1, "0", 1);
+        return(count);
+    }
     p = (char *)malloc(len + 1);
     p[len--] = '\0';
-    while (tmp)
+    while (d)
     {
-        if (tmp % 16 < 10)
-            p[len--] = '0' + tmp % 16;
+        if (d % 16 < 10)
+            p[len--] = '0' + d % 16;
         else
-            p[len--] = 'a' + ((tmp % 16) - 10);
-        tmp /= 16;
+            p[len--] = 'a' + ((d % 16) - 10);
+        d /= 16;
     }
     len = 0;
     while (p[len])
@@ -205,7 +223,7 @@ int prints(t_flag flags, char *s)
     while (flags.width-- > 0)
         count += write (1, " ", 1);
     while (i < len)
-        count += write (1, &s[i], 1);
+        count += write (1, &s[i++], 1);
     return (count);
 }
 

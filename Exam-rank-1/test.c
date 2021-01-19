@@ -1,7 +1,9 @@
 #include <stdio.h>
 
-int ft_printf(char const *format, ...);
+int ft_printf(char const *fmt, ...);
 int main()
 {
-    ft_printf("%d %x %d %d %d",10,10,15,13,14); 
+
+	ft_printf("%d\n", (int)-2147483649);
+	ft_printf("%x\n", 0);
 }

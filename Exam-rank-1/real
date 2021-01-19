@@ -1,7 +1,27 @@
 Simple test
 --Format---
-042154542147483647-2147483648-21474836482147483647
-02a1154e7fffffff80000000800000007ffffffftotowiurwuyrhwrywuier(null)--toto-wiurwuyrhwrywuier-(null)-
+0
+42
+1
+5454
+2147483647
+-2147483648
+-2147483648
+2147483647
+
+0
+2a
+1
+154e
+7fffffff
+80000000
+80000000
+7fffffff
+
+toto
+wiurwuyrhwrywuier
+(null)
+--toto-wiurwuyrhwrywuier-(null)-
 
 --Mixed---
 00422a21474836477fffffff-214748364880000000
@@ -55,4 +75,4 @@ s10w4p ~          ` ~      toto` ~      0123` ~      tjeh` ~      (nul`
 s10w10p ~          ` ~      toto` ~0123456789` ~tjehurthte` ~    (null)`
 s4w4p ~    ` ~toto` ~0123` ~tjeh` ~(nul`
 s4w10p ~          ` ~      toto` ~0123456789` ~tjehurthte` ~    (null)`
-written: 3379
+written: 3399
